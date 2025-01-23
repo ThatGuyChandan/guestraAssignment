@@ -1,4 +1,3 @@
-const express = require("express");
 const Category = require("../models/categoryModel");
 
 const createCategory = async (req, res) => {
@@ -20,6 +19,59 @@ const createCategory = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+const editCategory = async (req, res) => {
+  const { id } = req.params; // Category ID from the URL
+  const updates = req.body; // Attributes to update
+
+  try {
+    const category = await Category.findByIdAndUpdate(id, updates, {
+      new: true, // Return the updated document
+      runValidators: true, // Ensure validation rules are applied
+    });
+
+    if (!category) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Category not found" });
+    }
+
+    res.status(200).json({ success: true, data: category });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+// Get all categories
+const getAllCategories = async (req, res) => {
+  try {
+    const categories = await Category.find();
+    res.status(200).json({ success: true, data: categories });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Get a category by name or ID
+const getCategory = async (req, res) => {
+  const { id, name } = req.query;
+
+  try {
+    const query = id ? { _id: id } : { name: new RegExp(name, "i") };
+    const category = await Category.findOne(query);
+
+    if (!category) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Category not found" });
+    }
+
+    res.status(200).json({ success: true, data: category });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 module.exports = {
   createCategory,
+  editCategory,
+  getAllCategories,
+  getCategory,
 };
