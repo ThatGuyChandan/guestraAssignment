@@ -32,3 +32,6 @@ Start the application:
   ```
 This will run the server on http://localhost:3000.
 
+## Testing the Application
+1. Make sure the application is running locally.
+2. You can test the API using Postman .
