@@ -9,8 +9,13 @@ Before you begin, ensure you have met the following requirements:
    ```bash
    git clone git@github.com:ThatGuyChandan/guestraAssignment.git
 2.Navigate to the project directory:
+  ```bash
+  cd backend
+  ```
 3.Install dependencies:
-npm install
+  ```bash
+  npm install
+  ```
 4.Set up environment variables:
 -Create a .env file in the root of your project.
 -Add the following configuration to .env:
