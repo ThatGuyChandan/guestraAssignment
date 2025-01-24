@@ -1,5 +1,5 @@
 const Category = require("../models/categoryModel");
-
+//create category
 const createCategory = async (req, res) => {
   const { name, image, description, taxApplicability, tax, taxType } = req.body;
 
@@ -19,14 +19,15 @@ const createCategory = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+//update category by id
 const editCategory = async (req, res) => {
-  const { id } = req.params; // Category ID from the URL
-  const updates = req.body; // Attributes to update
+  const { id } = req.params;
+  const updates = req.body;
 
   try {
     const category = await Category.findByIdAndUpdate(id, updates, {
-      new: true, // Return the updated document
-      runValidators: true, // Ensure validation rules are applied
+      new: true,
+      runValidators: true,
     });
 
     if (!category) {

@@ -68,7 +68,6 @@ const editItem = async (req, res) => {
   const updates = req.body;
 
   try {
-    // Fetch the current item from the database
     const currentItem = await Item.findById(id);
 
     if (!currentItem) {

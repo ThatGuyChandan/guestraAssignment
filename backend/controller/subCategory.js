@@ -1,6 +1,6 @@
 const SubCategory = require("../models/subCategoryModel");
 const Category = require("../models/categoryModel");
-
+//create subCategory
 const createSubCategory = async (req, res) => {
   const { name, image, description, categoryId, taxApplicability, tax } =
     req.body;
@@ -28,14 +28,15 @@ const createSubCategory = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
+//updating subCategory by id
 const editSubCategory = async (req, res) => {
-  const { id } = req.params; // SubCategory ID from the URL
-  const updates = req.body; // Attributes to update
+  const { id } = req.params;
+  const updates = req.body;
 
   try {
     const subCategory = await SubCategory.findByIdAndUpdate(id, updates, {
-      new: true, // Return the updated document
-      runValidators: true, // Ensure validation rules are applied
+      new: true,
+      runValidators: true,
     });
 
     if (!subCategory) {
@@ -49,7 +50,7 @@ const editSubCategory = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
-// Get all sub-categories
+// Get all subCategories
 const getAllSubCategories = async (req, res) => {
   try {
     const subCategories = await SubCategory.find();
@@ -59,7 +60,7 @@ const getAllSubCategories = async (req, res) => {
   }
 };
 
-// Get all sub-categories under a category
+// Get all subCategories under a category
 const getSubCategoriesByCategory = async (req, res) => {
   const { categoryId } = req.query;
 
@@ -78,7 +79,7 @@ const getSubCategoriesByCategory = async (req, res) => {
   }
 };
 
-// Get a sub-category by name or ID
+// Get a subCategory by name or ID
 const getSubCategory = async (req, res) => {
   const { id, name } = req.query;
 
